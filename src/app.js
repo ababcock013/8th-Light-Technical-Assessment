@@ -18,8 +18,18 @@ const performBookSearch = async (query) => {
     .then(async (data) => {
       const spinner = ora("Retrieving books...").start();
       if (data !== undefined) {
-        console.log(data);
-        spinner.succeed("Books received!");
+        console.log("\n");
+        console.log(
+          boxen(JSON.stringify(data, null, 1), {
+            title: `Top Five results for "${query}"`,
+            titleAlignment: "center",
+            padding: 1,
+            backgroundColor: "#a5c0d1",
+            margin: 3,
+            float: "center",
+          })
+        );
+        spinner.succeed(chalk.green("Books received!"));
         await localStorage.setItem(
           "books.js",
           JSON.stringify(data)
@@ -27,8 +37,7 @@ const performBookSearch = async (query) => {
             .concat(" \n export default books")
         );
       } else {
-        console.log("bad data");
-        spinner.fail("Sorry");
+        spinner.fail(chalk.red("Sorry, search failed."));
         //repeat search
       }
     });
