@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -11,7 +12,12 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.24.0",
+    "chalk": "^5.0.0",
     "dotenv": "^10.0.0",
+    "enquirer": "^2.3.6",
+    "localStorage": "^1.0.4",
+    "node-localStorage": "^0.0.1",
+    "ora": "^6.0.1",
     "prompt": "^1.2.0"
   }
 }

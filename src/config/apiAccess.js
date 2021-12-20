@@ -1,12 +1,12 @@
-const axios = require('axios')
-require('dotenv').config()
+import axios from "axios"
+import {} from "dotenv/config"
 const URL = process.env.URL
 const KEY = process.env.G_BOOKS_API_KEY
 
 //Constrains query results to return only first 5 books
 const PARAMS = "&printType=books&startIndex=0&maxResults=5"
 
-const retrieve = async (query, bookList = []) => {
+export const retrieve = async (query, bookList = []) => {
 
    let books = await axios.get(`${URL}/volumes?q=${query}${PARAMS}${KEY}`)
         .then((res) => {
@@ -30,4 +30,4 @@ const retrieve = async (query, bookList = []) => {
       })
     return books
 }
-exports.retrive = retrieve
+

@@ -1,10 +1,12 @@
-require('dotenv').config()
-const getBooks = require('./config/apiAccess')
-//const books = require('./books');
-const prompt = require('prompt');
+import localStorage from "node-localStorage"
+import chalk from "chalk";
+import ora from "ora"
+
+import prompt from "prompt";
+import {retrieve} from './config/apiAccess.js'
 
 const getAll = async (query)=>{
-    await getBooks.retrive(encodeURIComponent(query)).then((data)=>{
+    await retrieve(encodeURIComponent(query)).then((data)=>{
         console.log(data)
         }
     )
