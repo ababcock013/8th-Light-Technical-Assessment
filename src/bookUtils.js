@@ -3,7 +3,7 @@ import { LocalStorage } from "node-localstorage";
 const localStorage = new LocalStorage("./scratch");
 
 let booksArray = [];
-let temp = []
+
 export const pickFavBook = (num) => {
   return new Promise((resolve) => {
     import("./scratch/books.js").then((books) => {
@@ -15,16 +15,16 @@ export const pickFavBook = (num) => {
   });
 };
 
-export const writeFavoriteToFile = async () => {
-   // booksArray.push(booksArray)
-    //console.log(temp)
-  // await localStorage.setItem(
-  //   "favBooks.js",
-  //   JSON.stringify()
-  //     .replace(/^/, "const favBooksList =")
-  //     .concat(" \n export default favBooksList")
-  // );
-};
+// export const writeFavoriteToFile = async () => {
+//    // booksArray.push(booksArray)
+//     //console.log(temp)
+//   // await localStorage.setItem(
+//   //   "favBooks.js",
+//   //   JSON.stringify()
+//   //     .replace(/^/, "const favBooksList =")
+//   //     .concat(" \n export default favBooksList")
+//   // );
+// };
 
 export const viewFavoriteBooks = async () => {
 

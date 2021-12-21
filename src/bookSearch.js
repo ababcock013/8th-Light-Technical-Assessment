@@ -10,11 +10,7 @@ import ora from "ora";
 import prompt from "prompt-async";
 
 import { retrieve } from "./config/apiAccess.js";
-import {
-  pickFavBook,
-  viewFavoriteBooks,
-  writeFavoriteToFile,
-} from "./bookUtils.js";
+import { pickFavBook, viewFavoriteBooks } from "./bookUtils.js";
 
 //let booksArray = [];
 
@@ -56,29 +52,37 @@ const performBookSearch = async (query) => {
           "Review the list and choose a book by number to add it to your favorites: "
         )
       );
+
       prompt.get("number", async (err, result) => {
         // noinspection JSUnresolvedVariable
-         pickFavBook(result.number)
-          .then(async () => {
-            await writeFavoriteToFile();
-          })
+        pickFavBook(result.number)
           .then(async () => {
             await viewFavoriteBooks();
+          })
+          .then(() => {
+            console.log("choose again?");
+            prompt.get("yesNo", async (err, result) => {
+              if (result.yesNo === "y") {
+                 await promptForSearch()
+              } else {
+                console.log('Good buy')
+              }
+            });
           });
       });
     });
 };
 
 const promptForSearch = async () => {
-  return new Promise(async (resolve) => {
+  return new Promise((resolve) => {
     console.log("Welcome to Book Search");
     // await prompt.start();
     console.log(" Enter a search term to find a book:");
-    await prompt.get("search", async (err, result) => {
-      await performBookSearch(result.search);
-      prompt.stop();
+    prompt.get("search", (err, result) => {
+      performBookSearch(result.search);
+      // prompt.stop();
     });
-    await resolve();
+    resolve();
   });
 };
 
