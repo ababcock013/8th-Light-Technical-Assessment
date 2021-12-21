@@ -4,20 +4,20 @@ A console application that allows you to search Google Books. You can add titles
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+The application is very simple to use. Just follow the prompts as they guide you along the way.
 
 ### Installing
 
 
-cd into the src directory after running npm install
 
-> npm install - Adds the dependencies and sets up the project
+
+> npm install - cd into the src directory after running npm install 
 
 > node index.js - Starts the application on the command line
 
-### Application View
+### Screen Shot
 
-![cliview](https://user-images.githubusercontent.com/53953519/81082800-c39e8680-8ec1-11ea-8774-07994d860e5d.png)
+![cliview](https://user-images.githubusercontent.com/88339752/146929896-1bf6a011-cea4-4970-a79e-613ef0533c53.png)
 
 ## Running tests
 
@@ -26,9 +26,5 @@ cd into the src directory after running npm install
 ##Author
 Andrew Babcock
 
-
-
-
-```
-
-```
+````
+Thank you and enjoy!
