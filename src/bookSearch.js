@@ -1,3 +1,5 @@
+// noinspection JSCheckFunctionSignatures
+
 import boxen from "boxen";
 import { LocalStorage } from "node-localstorage";
 const localStorage = new LocalStorage("./scratch/");
@@ -8,9 +10,13 @@ import ora from "ora";
 import prompt from "prompt-async";
 
 import { retrieve } from "./config/apiAccess.js";
-import {pickFavBook, viewFavoriteBooks, writeFavoriteToFile} from "./bookUtils.js";
+import {
+  pickFavBook,
+  viewFavoriteBooks,
+  writeFavoriteToFile,
+} from "./bookUtils.js";
 
-let booksArray = []
+//let booksArray = [];
 
 const performBookSearch = async (query) => {
   retrieve(encodeURIComponent(query))
@@ -31,29 +37,36 @@ const performBookSearch = async (query) => {
             float: "center",
           })
         );
-        await spinner.succeed(chalk.green("Books received!"));
+        spinner.succeed(chalk.green("Books received!"));
         await localStorage.setItem(
           "books.js",
           JSON.stringify(data)
             .replace(/^/, "const books =")
             .concat(" \n export default books")
         );
-          console.log("Books written")
+        console.log("Books written");
       } else {
         spinner.fail(chalk.red("Sorry, search failed."));
       }
     })
     .then(() => {
       prompt.start();
-      console.log(boxen("Review the List and choose a book by number to add it to your favorites: "));
+      console.log(
+        boxen(
+          "Review the list and choose a book by number to add it to your favorites: "
+        )
+      );
       prompt.get("number", async (err, result) => {
-        await pickFavBook(result.number).then(async ()=>{
-            await writeFavoriteToFile()
-        }).then(async()=>{
-           await viewFavoriteBooks()
-        })
+        // noinspection JSUnresolvedVariable
+         pickFavBook(result.number)
+          .then(async () => {
+            await writeFavoriteToFile();
+          })
+          .then(async () => {
+            await viewFavoriteBooks();
+          });
       });
-    })
+    });
 };
 
 const promptForSearch = async () => {
@@ -71,7 +84,6 @@ const promptForSearch = async () => {
 
 //export default promptForSearch;
 
-promptForSearch()
-  .catch((err) => {
-    console.log(err);
-  })
+promptForSearch().catch((err) => {
+  console.log(err);
+});
