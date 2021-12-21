@@ -23,7 +23,8 @@ The application is very simple to use. Just follow the prompts as they guide you
 
 > npm test - Runs the tests
 
-##Author
+## Author
+
 Andrew Babcock
 
 ````
