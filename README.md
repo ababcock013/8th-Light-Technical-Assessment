@@ -21,7 +21,7 @@ The application is very simple to use. Just follow the prompts as they guide you
 
 ## Running tests
 
-> npm test - Runs the tests
+> npm run test - Runs the tests
 
 ## Author
 
