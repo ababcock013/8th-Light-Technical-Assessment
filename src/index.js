@@ -12,8 +12,7 @@ import prompt from "prompt-async";
 import { retrieve } from "./config/apiAccess.js";
 import { pickFavBook, viewFavoriteBooks } from "./bookUtils.js";
 
-//let booksArray = [];
-
+//Handles search functions
 const performBookSearch = async (query) => {
   retrieve(encodeURIComponent(query))
     .then(async (data) => {
@@ -43,6 +42,8 @@ const performBookSearch = async (query) => {
         console.log("Books written");
       } else {
         spinner.fail(chalk.red("Sorry, search failed."));
+        //  console.clear()
+        // process.exit()
       }
     })
     .then(() => {
@@ -55,17 +56,17 @@ const performBookSearch = async (query) => {
 
       prompt.get("number", async (err, result) => {
         // noinspection JSUnresolvedVariable
-        pickFavBook(result.number)
+       await pickFavBook(result.number)
           .then(async () => {
             await viewFavoriteBooks();
           })
           .then(() => {
-            console.log("choose again?");
+            console.log("Perform another search and add more books to your list? y for yes, n or any other key to exit");
             prompt.get("yesNo", async (err, result) => {
               if (result.yesNo === "y") {
-                 await promptForSearch()
+                await promptForSearch();
               } else {
-                console.log('Good buy')
+                console.log("Thank you, have a nice day!");
               }
             });
           });
@@ -73,20 +74,23 @@ const performBookSearch = async (query) => {
     });
 };
 
+//Main prompt and entry to search
 const promptForSearch = async () => {
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     console.log("Welcome to Book Search");
-    // await prompt.start();
     console.log(" Enter a search term to find a book:");
     prompt.get("search", (err, result) => {
-      performBookSearch(result.search);
-      // prompt.stop();
+      if (result.search === "") {
+        console.log("Your search was blank");
+        promptForSearch();
+      } else {
+        performBookSearch(result.search);
+      }
     });
     resolve();
   });
 };
 
-//export default promptForSearch;
 
 promptForSearch().catch((err) => {
   console.log(err);

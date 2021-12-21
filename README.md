@@ -1,16 +1,34 @@
-"# 8th-Light-Technical-Assessment" 
+# Google Books Command Line Search Tool
 
-Code Submission
+A console application that allows you to search Google Books. You can add titles to your favorites and display a list of them when you're done. The UI makes it easy to see your books with vibrant colors enclosing your selections.
 
-Create a command line application that allows you to use the Google Books API to search for books and construct a reading list.
+## Getting Started
 
-You do not have to use a private GitHub repo for this.
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
-This application should allow you to:
-Type in a query and display a list of 5 books matching that query.
-Each item in the list should include the book's author, title, and publishing company.
-A user should be able to select a book from the five displayed to save to a “Reading List”
-View a “Reading List” with all the books the user has selected from their queries -- this is a local reading list and not tied to Google Books’s account features.
-For programming language, choose any language you want as long as it is not the same language you chose to review in the Code Review section above. Feel free to use a library (or not) for the Google Books call or JSON parsing.
+### Installing
 
 
+cd into the src directory after running npm install
+
+> npm install - Adds the dependencies and sets up the project
+
+> node index.js - Starts the application on the command line
+
+### Application View
+
+![cliview](https://user-images.githubusercontent.com/53953519/81082800-c39e8680-8ec1-11ea-8774-07994d860e5d.png)
+
+## Running tests
+
+> npm test - Runs the tests
+
+##Author
+Andrew Babcock
+
+
+
+
+```
+
+```
