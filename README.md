@@ -8,10 +8,7 @@ The application is very simple to use. Just follow the prompts as they guide you
 
 ### Installing
 
-
-
-
-> npm install - cd into the src directory after running npm install 
+> npm install - cd into the src directory after running npm install
 
 > node index.js - Starts the application on the command line
 
@@ -27,5 +24,6 @@ The application is very simple to use. Just follow the prompts as they guide you
 
 Andrew Babcock
 
-````
+```
 Thank you and enjoy!
+```

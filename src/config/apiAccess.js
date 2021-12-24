@@ -9,26 +9,23 @@ export const retrieve = async (query, bookList = []) => {
   return axios
     .get(`${URL}${query}${PARAMS}${KEY}`)
     .then((res) => {
-      let bookNum = 1;
-      bookList = res.data.items.map((item) => {
-        return {
-          "Book Number": bookNum++,
-          title: item.volumeInfo.title,
-          authors: item.volumeInfo.authors,
-          publisher: item.volumeInfo.publisher,
-        };
-      });
-      return bookList;
+      return createBookList(res);
     })
     .catch((e) => {
-      if (e.type === undefined && query === "") {
-        console.log("Blank query, please provide a search term.");
-      } else if (e.type === undefined) {
-        throw new Error(
-          `No results for term: ${decodeURIComponent(
-            query
-          )}! This is not a usual error, check what you typed, It'd had to have been something REALLY crazy!!`
-        );
-      }
+      console.log(e);
     });
+};
+
+const createBookList = async (data, bookList = []) => {
+  let bookNum = 1;
+  bookList = data.data.items.map((book) => {
+    return {
+      "Book Number": bookNum++,
+      title: book.volumeInfo.title,
+      authors: book.volumeInfo.authors,
+      publisher: book.volumeInfo.publisher,
+    };
+  });
+
+  return bookList;
 };
