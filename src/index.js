@@ -1,14 +1,8 @@
 // noinspection JSCheckFunctionSignatures
-
 import boxen from "boxen";
-import { LocalStorage } from "node-localstorage";
-const localStorage = new LocalStorage("./scratch/");
-
 import chalk from "chalk";
 import ora from "ora";
-
 import prompt from "prompt-async";
-
 import { retrieve } from "./config/apiAccess.js";
 import {
   isInputValid,

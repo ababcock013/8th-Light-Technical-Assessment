@@ -1,7 +1,5 @@
 import boxen from "boxen";
-import { LocalStorage } from "node-localstorage";
 import chalk from "chalk";
-const localStorage = new LocalStorage("./scratch");
 
 let favBooks = [];
 
