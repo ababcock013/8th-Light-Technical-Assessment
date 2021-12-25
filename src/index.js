@@ -12,49 +12,51 @@ import {
   viewFavoriteBooks,
 } from "./bookUtils.js";
 
-let booksArray = [];
-
+const booksArray = [];
+prompt.start();
 //Handles search function and UI view
 const performBookSearch = async (query) => {
-  retrieve(encodeURIComponent(query))
-    .then((data) => {
-      return data;
-    })
-    .then((data) => {
-      const spinner = ora("Retrieving books...").start();
-      if (data !== undefined) {
-        console.log("\n");
-        console.log(
-          boxen(JSON.stringify(data, null, 1), {
-            title: `Top Five results for "${query}"`,
-            titleAlignment: "center",
-            padding: 1,
-            backgroundColor: "blue",
-            margin: 3,
-            float: "center",
-          })
-        );
-        spinner.succeed(chalk.green("Books received!"));
-        booksArray.length = 0;
-        data.map((item) => {
-          booksArray.push(item);
-        });
+  const hasBooks = retrieve(encodeURIComponent(query));
+  if (hasBooks) {
+    hasBooks
+      .then((data) => {
+        return data;
+      })
+      .then((data) => {
+        if (data !== false) {
+          const spinner = ora("Retrieving books...").start();
+          console.log("\n");
+          console.log(
+            boxen(JSON.stringify(data, null, 1), {
+              title: `Top Five results for "${query}"`,
+              titleAlignment: "center",
+              padding: 1,
+              backgroundColor: "blue",
+              margin: 3,
+              float: "center",
+            })
+          );
+          spinner.succeed(chalk.green("Books received!"));
+          booksArray.length = 0;
+          data.map((item) => {
+            booksArray.push(item);
+          });
 
-        console.log("Books written to file.");
-      } else {
-        spinner.fail(chalk.red("Sorry, search failed."));
-      }
-    })
-    .then(() => {
-      prompt.start();
-      promptForNumber();
-    });
+          console.log("Books written to file.");
+
+          promptForNumber();
+        } else {
+          const error = ora();
+          error.fail(chalk.red("Sorry, search failed."));
+          promptForSearch();
+        }
+      });
+  }
 };
 
 //Main prompt and entry to search
 const promptForSearch = async () => {
-  console.log("Welcome to Book Search");
-  console.log(" Enter a search term to find a book:");
+  console.log("Enter a search term to find a book:");
   prompt.get("search", (err, result) => {
     if (!isSearchValid(result.search)) {
       //console.log("Your search was blank");
@@ -64,18 +66,21 @@ const promptForSearch = async () => {
     }
   });
 };
+
 //Prompt to ask to continue search
 const promptToContinue = async () => {
   console.log(
     "Perform another search and add more books to your list? y for yes, n to exit."
   );
-  await prompt.get("yesNo", async (err, result) => {
-    let input = await isInputValid(result.yesNo);
+  prompt.get("yesNo", async (err, result) => {
+    const input = await isInputValid(result.yesNo);
     if (input === "y") {
       await promptForSearch();
     }
     if (input === "n") {
-      console.log(chalk.green("Exiting Book Search, Good bye."));
+      console.log(
+        chalk.green("Exiting Book Search. \nThank you for using, good bye.")
+      );
     } else if (input === false) {
       console.log(chalk.red("Enter y or n only."));
       await promptToContinue();
@@ -83,7 +88,7 @@ const promptToContinue = async () => {
   });
 };
 
-//Prompt for picking book to add to favorites list
+//Prompt for picking book by number to add to favorites list
 const promptForNumber = () => {
   console.log(
     boxen(
@@ -91,7 +96,7 @@ const promptForNumber = () => {
     )
   );
   prompt.get("number", async (err, result) => {
-    let number = result.number;
+    const number = result.number;
     if (!isValidNumber(number)) {
       console.log(chalk.red("Only numbers 1-5 are valid"));
       promptForNumber();
@@ -107,6 +112,7 @@ const promptForNumber = () => {
   });
 };
 
+console.log("Welcome to Book Search");
 //starts the CLI for the program
 promptForSearch().catch((err) => {
   console.log(err);

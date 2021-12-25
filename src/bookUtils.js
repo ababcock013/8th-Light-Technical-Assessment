@@ -1,17 +1,29 @@
 import boxen from "boxen";
-import chalk from "chalk";
+//import chalk from "chalk"; // disabled  chalk for testing
 
-let favBooks = [];
+const favBooks = [];
 
-//reads books.js file to choose a book to save to favorites
-export let pickFavBook = async (num, books) => {
-  let pick = books[num - 1];
+// Creates and returns an array of book objects
+export const createBookList = async (data, bookList = []) => {
+  let bookNum = 1;
+  bookList = data.data.items.map((book) => {
+    return {
+      "Book Number": bookNum++,
+      title: book.volumeInfo.title,
+      authors: book.volumeInfo.authors,
+      publisher: book.volumeInfo.publisher,
+    };
+  });
+  return bookList;
+};
 
+//Chooses a book to save to favorites
+export const pickFavBook = async (num, books) => {
+  const pick = books[num - 1];
   favBooks.push(pick);
 };
 
 export const viewFavoriteBooks = async () => {
-  //console.log(favBooks)
   console.log(
     boxen(JSON.stringify(favBooks), {
       title: `Your Favorite Books`,
@@ -30,7 +42,8 @@ export const viewFavoriteBooks = async () => {
 export const isSearchValid = (query) => {
   const invalid = new RegExp(/^\s+$/);
   if (invalid.test(query) || query.length === 0) {
-    console.log(chalk.red("Empty search strings are not allowed."));
+    //console.log(chalk.red("Empty search strings are not allowed."));
+    console.log("Empty search strings are not allowed."); // chalk disabled for testing
     return false;
   } else {
     return query.trim();
