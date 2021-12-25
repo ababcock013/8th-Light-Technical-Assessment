@@ -13,7 +13,6 @@ export const retrieve = async (query) => {
     .get(`${URL}${query}${PARAMS}${KEY}`)
     .then((res) => {
       if (res.data.totalItems) {
-        //console.log(res.data.totalItems)
         return createBookList(res);
       } else {
         return false;

@@ -59,7 +59,6 @@ const promptForSearch = async () => {
   console.log("Enter a search term to find a book:");
   prompt.get("search", (err, result) => {
     if (!isSearchValid(result.search)) {
-      //console.log("Your search was blank");
       promptForSearch();
     } else {
       performBookSearch(result.search);

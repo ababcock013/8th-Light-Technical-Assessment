@@ -1,5 +1,5 @@
 import boxen from "boxen";
-//import chalk from "chalk"; // disabled  chalk for testing
+//import chalk from "chalk"; // disable chalk for testing in Jest, throws an error if imported
 
 const favBooks = [];
 
